@@ -1,22 +1,12 @@
 <?php
-session_start();
 
-// ====== SECURITY CHECKS ======
-if (!isset($_GET['key'])) {
-    http_response_code(403);
-    echo "Access denied. Missing key.";
-    exit;
-}
-if (!isset($_SESSION['download_key']) || $_GET['key'] !== $_SESSION['download_key']) {
-    http_response_code(403);
-    echo "Access denied. Invalid key.";
-    exit;
-}
-if (time() > $_SESSION['key_expires']) {
-    http_response_code(403);
-    echo "Access denied. Key expired.";
-    exit;
-}
+declare(strict_types=1);
+
+header('Content-Type: application/json; charset=utf-8');
+
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
 
 // ====== MODEL SHORT NAMES ======
 $MODEL_NAMES = ["icon_global" => "icon", "ecmwf_ifs025" => "ecmwf_ifs", "gfs_global" => "gfs", "meteofrance_arpege_world" => "arpege", 
