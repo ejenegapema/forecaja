@@ -556,22 +556,12 @@ function createTable(data) {
 }
 
 const API_CONFIG = {
-  BASE_URL: 'https://marsentim.com/forecast/data.php',
+  BASE_URL: 'https://forecaja.vercel.app/api/data.php',
   KEY: null
 };
 
-async function fetchKey() {
-  const response = await fetch("key.php", { credentials: "include" });
-  if (!response.ok) throw new Error("Failed to fetch key: " + response.status);
-
-  const data = await response.json();
-  API_CONFIG.KEY = data.key;
-}
-
-fetchKey();
-
 function fetchWeatherData(lat, lon, model) {
-    const API_URL = `${API_CONFIG.BASE_URL}?lat=${lat}&lon=${lon}&model=${model}&key=${API_CONFIG.KEY}`;
+    const API_URL = `${API_CONFIG.BASE_URL}?lat=${lat}&lon=${lon}&model=${model}`;
     
     return new Promise(function(resolve, reject) {
         const xhr = new XMLHttpRequest();
